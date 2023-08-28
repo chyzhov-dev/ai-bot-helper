@@ -1,0 +1,21 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer utilities {
+    .placeholder-half-black::placeholder {
+        color: rgba(0, 0, 0, 0.5);
+    }
+}
+
+@font-face {
+    font-family: 'Real Head Pro';
+    src: url('/public/fonts/real-head-pro.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: 'Real Head Pro', sans-serif !important;
+}
