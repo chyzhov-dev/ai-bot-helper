@@ -1,5 +1,7 @@
 import { NextRequest } from 'next/server';
 
+export const maxDuration = 60;
+
 const template = (
   input: string,
 ) => `Task: Create a UX/UI design for the main page of a mobile application.
