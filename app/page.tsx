@@ -7,6 +7,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [userPrompt, setUserPrompt] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
+  const [step, setStep] = useState<number>(0);
 
   const onUserPromptChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setUserPrompt(e.target.value);
@@ -14,6 +15,10 @@ export default function Home() {
 
   const onPromptChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setPrompt(e.target.value);
+  };
+
+  const onBackClick = () => {
+    setStep(0);
   };
 
   const onUserPromptClick = () => {
@@ -29,6 +34,8 @@ export default function Home() {
 
       const reader = data.getReader();
       const decoder = new TextDecoder();
+
+      setStep(1);
 
       const interval = setInterval(async () => {
         const chunk = await reader.read();
@@ -60,33 +67,36 @@ export default function Home() {
       </div>
       <div className="w-full md:w-6/12 md:border-l-2 h-full border-black flex flex-col gap-6 justify-center items-center md:p-8 lg:p-16">
         <div className="h-full flex flex-col gap-4 justify-center items-center w-full">
-          <div className="flex flex-col gap-4 items-start w-full justify-start">
-            <div className="flex gap-2">
-              <Image width={24} height={24} src="/icons/zap.svg" alt="zap-icon" />
-              <h3 className="font-bold text-2xl">Step 1</h3>
+          {step === 0 && (
+            <div className="flex flex-col gap-4 items-start w-full justify-start">
+              <div className="flex gap-2">
+                <Image width={24} height={24} src="/icons/zap.svg" alt="zap-icon" />
+                <h3 className="font-bold text-2xl">Step 1</h3>
+              </div>
+              <h3>Turn your idea into a prompt</h3>
+              <textarea
+                placeholder="In a phrase or two, describe what you want your bot to be good at."
+                className="w-full min-h-20 border border-black p-2 placeholder-half-black focus:border-black resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+                value={userPrompt}
+                disabled={isLoading}
+                onChange={onUserPromptChange}
+              />
+              <button
+                type="button"
+                className="w-fit px-10 py-4 border-r-2 text-base bg-black text-white flex items-center gap-2 relative"
+                onClick={onUserPromptClick}
+              >
+                {isLoading && (
+                  <div className="w-4 h-4 flex items-center justify-center absolute left-4">
+                    <div className="loader w-4 h-4 border-t-4 border-b-4 border-t-blue-500 border-b-blue-500 rounded-full animate-spin" />
+                  </div>
+                )}
+                Get your prompt
+              </button>
             </div>
-            <h3>Turn your idea into a prompt</h3>
-            <textarea
-              placeholder="In a phrase or two, describe what you want your bot to be good at."
-              className="w-full min-h-20 border border-black p-2 placeholder-half-black focus:border-black resize-none disabled:opacity-50 disabled:cursor-not-allowed"
-              value={userPrompt}
-              disabled={isLoading}
-              onChange={onUserPromptChange}
-            />
-            <button
-              type="button"
-              className="w-fit px-10 py-4 border-r-2 text-base bg-black text-white flex items-center gap-2 relative"
-              onClick={onUserPromptClick}
-            >
-              {isLoading && (
-                <div className="w-4 h-4 flex items-center justify-center absolute left-4">
-                  <div className="loader w-4 h-4 border-t-4 border-b-4 border-t-blue-500 border-b-blue-500 rounded-full animate-spin" />
-                </div>
-              )}
-              Get your prompt
-            </button>
-          </div>
-          {prompt && (
+          )}
+
+          {step === 1 && (
             <div className="flex flex-col gap-4 items-start w-full justify-start">
               <div className="flex gap-2 w-full">
                 <Image width={24} height={24} src="/icons/edit.svg" alt="zap-icon" />
@@ -100,13 +110,22 @@ export default function Home() {
                 value={prompt}
                 onChange={onPromptChange}
               />
-              <button
-                type="button"
-                className="w-fit px-10 py-4 border-r-2 text-base bg-black text-white"
-                onClick={onUserPromptClick}
-              >
-                Build your app
-              </button>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  className="w-fit px-10 py-4 border-r-2 text-base bg-black text-white"
+                  onClick={onUserPromptClick}
+                >
+                  Build your app
+                </button>
+                <button
+                  type="button"
+                  className="w-fit px-10 py-4 border-2 border-black text-base text-black"
+                  onClick={onBackClick}
+                >
+                  Back
+                </button>
+              </div>
             </div>
           )}
         </div>
