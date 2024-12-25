@@ -46,8 +46,8 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen w-screen flex">
-      <div className="w-6/12 h-full bg-cream flex flex-col items-center gap-4 justify-center p-16">
+    <div className="h-screen w-screen flex bg-cream md:bg-transparent p-2 md:p-0">
+      <div className="w-6/12 h-full bg-cream flex-col items-center gap-4 justify-center p-8 lg:p-16 hidden md:flex">
         <Image
           src="/images/robot-girl.svg"
           alt="robot-girl"
@@ -58,10 +58,10 @@ export default function Home() {
           Create your own AI app with our wizard
         </h2>
       </div>
-      <div className="w-6/12 border-l-2 h-full border-black flex flex-col gap-6 justify-center items-center p-16">
+      <div className="w-full md:w-6/12 md:border-l-2 h-full border-black flex flex-col gap-6 justify-center items-center md:p-8 lg:p-16">
         <div className="h-full flex flex-col gap-4 justify-center items-center w-full">
           <div className="flex flex-col gap-4 items-start w-full justify-start">
-            <div className="flex gap-2 w-full">
+            <div className="flex gap-2">
               <Image width={24} height={24} src="/icons/zap.svg" alt="zap-icon" />
               <h3 className="font-bold text-2xl">Step 1</h3>
             </div>
