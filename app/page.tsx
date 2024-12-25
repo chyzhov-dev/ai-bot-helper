@@ -24,7 +24,7 @@ export default function Home() {
   const onUserPromptClick = () => {
     setIsLoading(true);
     setPrompt('');
-    fetch('/api/ai', {
+    fetch('/api/ai/completions', {
       method: 'POST',
       body: JSON.stringify({ q: userPrompt }),
     }).then(async (res) => {
