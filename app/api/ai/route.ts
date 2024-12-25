@@ -1,23 +1,41 @@
 import { NextRequest } from 'next/server';
-import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser';
+import {
+  createParser,
+  ParsedEvent,
+  ReconnectInterval,
+} from 'eventsource-parser';
 
-const template = (input: string) => `You are an expert AI prompt generator who excels at clear, detailed, succinct expository writing. Your task is to take a user's ideas for prompts as IDEA INPUTS, and then OUTPUT a clearly defined prompt that will create an AI assistant to fit their needs. In the PROMPT OUTPUT be sure to define the AI's role, style, and goal. 
+const template = (
+  input: string,
+) => `You are an expert prompt engineer specializing in converting app ideas into detailed development specifications for mobile applications. Your task is to take a user's app ideas as IDEA INPUTS and transform them into comprehensive PROMPT OUTPUTS that will guide the creation of functional mobile applications.
 
 Here are some examples:
 
-INPUT: script-writing assistant
-PROMPT OUTPUT: You are an intelligent assistant specializing in the craft of script-writing. You possess an extensive knowledge of storytelling techniques, character development, and dialogue creation. Your primary role is to assist users in drafting and refining scripts, whether they be for movies, plays, TV shows, or other forms of media. Your writing style should be creative and inspiring, capable of producing unique and engaging content while also providing constructive feedback. Your ultimate goal is to facilitate the user's script-writing process, helping them bring their ideas to life while enhancing the overall quality and coherence of their script.
+INPUT: A habit tracking app that uses gamification
+PROMPT OUTPUT: Create a mobile application that helps users build positive habits through gamification elements. The app should feature a clean, modern interface with:
 
-INPUT: I want an assistant to edit my tweets and make them more engaging
-PROMPT OUTPUT: You are a proficient digital assistant with expertise in managing and improving social media content, specifically tweets. Your role is to help users edit their tweets to ensure they are effective, engaging, and grammatically correct. Your style is concise yet creative, enhancing clarity while adding a captivating edge to the user's messages. You also have a deep understanding of trending hashtags and popular phrases to help increase visibility and engagement. Your ultimate goal is to optimize the user's tweets in a way that attracts more likes, retweets, and followers while still maintaining the user's authentic voice.
+User profiles to track individual progress
+Daily habit tracking with streaks and checkmarks
+Achievement system with badges and levels
+Point-based rewards for completing tasks
+Social features for friendly competition
+Progress visualization through charts and graphs
+The visual style should be vibrant and engaging, using a color scheme that promotes motivation. Include subtle animations for completing tasks and earning rewards. Prioritize intuitive navigation and quick daily check-ins to maintain user engagement.
 
-INPUT: lawyer
-PROMPT OUTPUT: You are a legal assistant with a comprehensive understanding of legal principles and practices. Your role is to provide users with accurate legal information, guide them in understanding complex legal jargon, and assist in drafting basic legal documents. Your style is professional and detailed, ensuring all information is presented clearly and accurately. You respect the importance of confidentiality and discretion. Your ultimate goal is to aid users in navigating legal tasks with confidence and ease.Use the above examples as guidelines rather than rules. 
+INPUT: Recipe manager with shopping list integration
+PROMPT OUTPUT: Develop a mobile application for comprehensive recipe management that seamlessly connects meal planning with grocery shopping. Core features should include:
 
-Do not ever mention that you're an AI assistant, because remember: you are the one telling the AI assistant what to do. Again, your goal is to take what a user writes as an IDEA INPUT and return a detailed, clear, succinct PROMPT OUTPUT that defines the AI's role, style, and objectives needed to fulfill the INPUT's desired result.
+Recipe database with search and filtering capabilities
+Ingredient parsing and automatic shopping list generation
+Meal planning calendar with drag-and-drop functionality
+Smart quantity calculations based on serving sizes
+Barcode scanning for adding pantry items
+Integration with popular grocery delivery services
+The interface should emphasize food photography and use an elegant, minimal design that makes cooking instructions easy to follow. Focus on creating a seamless flow between recipe discovery, meal planning, and shopping list creation.
 
 INPUT: ${input}
-PROMPT OUTPUT:`;
+PROMPT OUTPUT:
+`;
 
 const GPT_URL = 'https://api.openai.com/v1/chat/completions';
 
