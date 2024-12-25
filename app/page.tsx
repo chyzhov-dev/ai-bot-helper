@@ -2,6 +2,7 @@
 
 import { ChangeEventHandler, useState } from 'react';
 import Image from 'next/image';
+import Button from '@/components/ui/button';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,29 +28,31 @@ export default function Home() {
     fetch('/api/ai/completions', {
       method: 'POST',
       body: JSON.stringify({ q: userPrompt }),
-    }).then(async (res) => {
-      const data = res.body;
+    })
+      .then(async (res) => {
+        const data = res.body;
 
-      if (!data) return;
+        if (!data) return;
 
-      const reader = data.getReader();
-      const decoder = new TextDecoder();
+        const reader = data.getReader();
+        const decoder = new TextDecoder();
 
-      setStep(1);
+        setStep(1);
 
-      const interval = setInterval(async () => {
-        const chunk = await reader.read();
-        setPrompt((prev) => prev + decoder.decode(chunk.value));
+        const interval = setInterval(async () => {
+          const chunk = await reader.read();
+          setPrompt((prev) => prev + decoder.decode(chunk.value));
 
-        if (chunk.done) {
-          clearInterval(interval);
-        }
-      }, 10);
+          if (chunk.done) {
+            clearInterval(interval);
+          }
+        }, 10);
 
-      setIsLoading(false);
-    }).catch(() => {
-      setIsLoading(false);
-    });
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -70,7 +73,12 @@ export default function Home() {
           {step === 0 && (
             <div className="flex flex-col gap-4 items-start w-full justify-start">
               <div className="flex gap-2">
-                <Image width={24} height={24} src="/icons/zap.svg" alt="zap-icon" />
+                <Image
+                  width={24}
+                  height={24}
+                  src="/icons/zap.svg"
+                  alt="zap-icon"
+                />
                 <h3 className="font-bold text-2xl">Step 1</h3>
               </div>
               <h3>Turn your idea into a prompt</h3>
@@ -81,26 +89,26 @@ export default function Home() {
                 disabled={isLoading}
                 onChange={onUserPromptChange}
               />
-              <button
-                type="button"
-                disabled={!userPrompt.trim()}
-                className="w-fit px-10 py-4 border-r-2 text-base bg-black text-white flex items-center gap-2 relative disabled:bg-gray-400"
+              <Button
                 onClick={onUserPromptClick}
+                variant="primary"
+                disabled={!userPrompt.trim()}
+                isLoading={isLoading}
               >
-                {isLoading && (
-                  <div className="w-4 h-4 flex items-center justify-center absolute left-4">
-                    <div className="loader w-4 h-4 border-t-4 border-b-4 border-t-blue-500 border-b-blue-500 rounded-full animate-spin" />
-                  </div>
-                )}
                 Get your prompt
-              </button>
+              </Button>
             </div>
           )}
 
           {step === 1 && (
             <div className="flex flex-col gap-4 items-start w-full justify-start">
               <div className="flex gap-2 w-full">
-                <Image width={24} height={24} src="/icons/edit.svg" alt="zap-icon" />
+                <Image
+                  width={24}
+                  height={24}
+                  src="/icons/edit.svg"
+                  alt="zap-icon"
+                />
                 <h3 className="font-bold text-2xl">Step 2</h3>
               </div>
               <h3 className="w-full">
@@ -112,21 +120,16 @@ export default function Home() {
                 onChange={onPromptChange}
               />
               <div className="flex gap-2">
-                <button
-                  type="button"
-                  className="w-fit px-10 py-4 border-r-2 text-base bg-black text-white"
-                  onClick={onUserPromptClick}
-                >
+                <Button variant="primary" onClick={onUserPromptClick}>
                   Build your app
-                </button>
-                <button
-                  type="button"
-                  className="w-fit px-10 py-4 border-2 border-black text-base text-black"
-                  onClick={onBackClick}
+                </Button>
+                <Button
+                  variant="secondary"
                   disabled={!prompt.trim().length}
+                  onClick={onBackClick}
                 >
                   Back
-                </button>
+                </Button>
               </div>
             </div>
           )}
