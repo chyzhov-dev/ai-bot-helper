@@ -4,6 +4,7 @@ import { ChangeEventHandler, useState } from 'react';
 import Image from 'next/image';
 import Modal from '@/components/ui/modal';
 import Button from '@/components/ui/button';
+import Step from '@/components/step';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -81,17 +82,7 @@ export default function Home() {
       <div className="w-full md:w-6/12 md:border-l-2 h-full border-black flex flex-col gap-6 justify-center items-center md:p-8 lg:p-16">
         <div className="h-full flex flex-col gap-4 justify-center items-center w-full">
           {step === 0 && (
-            <div className="flex flex-col gap-4 items-start w-full justify-start">
-              <div className="flex gap-2">
-                <Image
-                  width={24}
-                  height={24}
-                  src="/icons/zap.svg"
-                  alt="zap-icon"
-                />
-                <h3 className="font-bold text-2xl">Step 1</h3>
-              </div>
-              <h3>Turn your idea into a prompt</h3>
+            <Step subtitle="Turn your idea into a prompt" title="Step 1">
               <textarea
                 placeholder="In a phrase or two, describe what you want your bot to be good at."
                 className="w-full min-h-20 border border-black p-2 placeholder-half-black focus:border-black resize-none disabled:opacity-50 disabled:cursor-not-allowed"
@@ -107,23 +98,13 @@ export default function Home() {
               >
                 Get your prompt
               </Button>
-            </div>
+            </Step>
           )}
-
           {step === 1 && (
-            <div className="flex flex-col gap-4 items-start w-full justify-start">
-              <div className="flex gap-2 w-full">
-                <Image
-                  width={24}
-                  height={24}
-                  src="/icons/edit.svg"
-                  alt="zap-icon"
-                />
-                <h3 className="font-bold text-2xl">Step 2</h3>
-              </div>
-              <h3 className="w-full">
-                Look over your prompt, polish it, and turn it into an app
-              </h3>
+            <Step
+              title="Step 2"
+              subtitle="Look over your prompt, polish it, and get the preview"
+            >
               <textarea
                 className="w-full min-h-60 border border-black p-2 focus:border-black resize-none"
                 value={prompt}
@@ -131,7 +112,7 @@ export default function Home() {
               />
               <div className="flex gap-2">
                 <Button variant="primary" onClick={onBuildChatClick}>
-                  Build your app
+                  Get app preview
                 </Button>
                 <Button
                   variant="secondary"
@@ -141,7 +122,7 @@ export default function Home() {
                   Back
                 </Button>
               </div>
-            </div>
+            </Step>
           )}
         </div>
       </div>
