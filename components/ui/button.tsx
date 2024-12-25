@@ -32,7 +32,7 @@ export default function Button({
       type="button"
     >
       {isLoading && (
-        <div className="w-4 h-4 flex items-center justify-center absolute left-4">
+        <div className="w-4 h-4 flex items-center justify-center absolute left-4 top-1/2 translate-y-[-50%]">
           <div className="loader w-4 h-4 border-t-4 border-b-4 border-t-blue-500 border-b-blue-500 rounded-full animate-spin" />
         </div>
       )}
