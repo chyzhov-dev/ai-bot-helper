@@ -2,6 +2,7 @@
 
 import { ChangeEventHandler, useState } from 'react';
 import Image from 'next/image';
+import Modal from '@/components/ui/modal';
 import Button from '@/components/ui/button';
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
   const [userPrompt, setUserPrompt] = useState<string>('');
   const [prompt, setPrompt] = useState<string>('');
   const [step, setStep] = useState<number>(0);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const onUserPromptChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setUserPrompt(e.target.value);
@@ -20,6 +22,10 @@ export default function Home() {
 
   const onBackClick = () => {
     setStep(0);
+  };
+
+  const onCloseModal = () => {
+    setModalOpen(false);
   };
 
   const onUserPromptClick = () => {
@@ -53,6 +59,10 @@ export default function Home() {
       .catch(() => {
         setIsLoading(false);
       });
+  };
+
+  const onBuildChatClick = () => {
+    setModalOpen(true);
   };
 
   return (
@@ -120,7 +130,7 @@ export default function Home() {
                 onChange={onPromptChange}
               />
               <div className="flex gap-2">
-                <Button variant="primary" onClick={onUserPromptClick}>
+                <Button variant="primary" onClick={onBuildChatClick}>
                   Build your app
                 </Button>
                 <Button
@@ -135,6 +145,11 @@ export default function Home() {
           )}
         </div>
       </div>
+      <Modal
+        isOpen={modalOpen}
+        title="In demo version application build is not available"
+        onClose={onCloseModal}
+      />
     </div>
   );
 }
