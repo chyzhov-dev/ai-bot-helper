@@ -83,7 +83,8 @@ export default function Home() {
               />
               <button
                 type="button"
-                className="w-fit px-10 py-4 border-r-2 text-base bg-black text-white flex items-center gap-2 relative"
+                disabled={!userPrompt.trim()}
+                className="w-fit px-10 py-4 border-r-2 text-base bg-black text-white flex items-center gap-2 relative disabled:bg-gray-400"
                 onClick={onUserPromptClick}
               >
                 {isLoading && (
