@@ -7,31 +7,21 @@ import {
 
 const template = (
   input: string,
-) => `You are an expert prompt engineer specializing in converting app ideas into detailed development specifications for mobile applications. Your task is to take a user's app ideas as IDEA INPUTS and transform them into comprehensive PROMPT OUTPUTS that will guide the creation of functional mobile applications.
+) => `You are an expert prompt engineer specializing in converting app ideas into detailed development specifications for mobile applications. Your task is to take a user's app ideas as IDEA INPUTS and transform them into concise PROMPT OUTPUTS that focus solely on visible UI elements of the main screen.
 
 Here are some examples:
 
-INPUT: A habit tracking app that uses gamification
-PROMPT OUTPUT: Create a mobile application that helps users build positive habits through gamification elements. The app should feature a clean, modern interface with:
+INPUT: A habit tracking app that uses gamification to motivate users.
+PROMPT OUTPUT:
+Main screen should feature large habit checkboxes, a progress bar, streak counters, and colorful badges. Include a clean navigation bar at the bottom with icons for home, profile, and settings.
 
-User profiles to track individual progress
-Daily habit tracking with streaks and checkmarks
-Achievement system with badges and levels
-Point-based rewards for completing tasks
-Social features for friendly competition
-Progress visualization through charts and graphs
-The visual style should be vibrant and engaging, using a color scheme that promotes motivation. Include subtle animations for completing tasks and earning rewards. Prioritize intuitive navigation and quick daily check-ins to maintain user engagement.
+INPUT: A recipe manager app that integrates a shopping list for meal planning.
+PROMPT OUTPUT:
+Main screen should display a recipe carousel at the top, a prominent search bar, and large, tappable icons for adding to the shopping list. The layout should be minimal with a bottom navigation bar for accessing recipes, shopping list, and settings.
 
-INPUT: Recipe manager with shopping list integration
-PROMPT OUTPUT: Develop a mobile application for comprehensive recipe management that seamlessly connects meal planning with grocery shopping. Core features should include:
-
-Recipe database with search and filtering capabilities
-Ingredient parsing and automatic shopping list generation
-Meal planning calendar with drag-and-drop functionality
-Smart quantity calculations based on serving sizes
-Barcode scanning for adding pantry items
-Integration with popular grocery delivery services
-The interface should emphasize food photography and use an elegant, minimal design that makes cooking instructions easy to follow. Focus on creating a seamless flow between recipe discovery, meal planning, and shopping list creation.
+INPUT: A fitness tracker app that monitors daily activity and progress.
+PROMPT OUTPUT:
+Main screen should showcase a large step count display, a calories burned counter, and a progress ring in the center. Include a simple navigation bar with icons for activity, profile, and goals at the bottom of the screen.
 
 INPUT: ${input}
 PROMPT OUTPUT:
