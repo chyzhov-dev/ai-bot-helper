@@ -123,6 +123,7 @@ export default function Home() {
                   type="button"
                   className="w-fit px-10 py-4 border-2 border-black text-base text-black"
                   onClick={onBackClick}
+                  disabled={!prompt.trim().length}
                 >
                   Back
                 </button>
